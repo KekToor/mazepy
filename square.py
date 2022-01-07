@@ -10,10 +10,9 @@ class Square(Widget):
         self.color = get_color_from_hex(color)
         self.width = width
         self.height = height
-        pass
 
     def draw(self):
         with self.canvas:
             Color(self.color)
-            Rectangle(pos=(self.x, self.y), size =(self.width, self.height))
+            Rectangle(pos=(self.x, self.y), size=(self.width, self.height))
 

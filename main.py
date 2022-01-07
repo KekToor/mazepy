@@ -11,16 +11,20 @@ window_height = 720
 
 
 class CanvasScreen(Screen):
-    def start_game(self):
-        try:
-            if not self.manager.playing[0]:
-                self.manager.models[0] = None
-            if not self.manager.playing[1]:
-                self.manager.models[1] = None
-            self.game = MazeGame(self.manager.models)
-        except:
-            self.manager.models = [None, None]
-            self.game = MazeGame(self.manager.models)
+    def __init__(self, name):
+        super().__init__()
+        self.game = MazeGame()
+        self.game.draw()
+
+    # def start_game(self):
+    #     try:
+    #         # if not self.manager.playing[0]:
+    #         #     self.manager.models[0] = None
+    #         # if not self.manager.playing[1]:
+    #         #     self.manager.models[1] = None
+    #
+    #     except:
+    #         self.manager.models = [None, None]
 
         self.add_widget(self.game)
         self.game.start()
@@ -28,7 +32,7 @@ class CanvasScreen(Screen):
 
 class MazeApp(App):
     def build(self):
-        sm = ScreenManager
+        sm = ScreenManager()
         sm.add_widget(CanvasScreen(name='canvas'))
 
         Config.set('graphics', 'width', window_width)

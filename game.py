@@ -28,14 +28,17 @@ class MazeGame(Widget):
     def __init__(self, **kwargs):
         super(MazeGame, self).__init__(**kwargs)
 
-        self.default_width = self.width / self.count_width
-        self.default_height = self.height / self.count_height
+        self.default_width = int(self.width / self.count_width)
+        self.default_height = int(self.height / self.count_height)
         self.colors = ['#FFFFFF', '#000000', '#FF0000', '#00FF00']
         self.squares = []
         for i in range(0, self.count_width):
             for j in range(0, self.count_height):
                 self.squares.append(Square(i * self.default_width, j * self.default_height, self.colors[squareArray[j][i]], j, i))
 
+    def draw(self):
+        for square in self.squares:
+            square.draw()
 
-x = MazeGame()
-print(x)
+# x = MazeGame()
+# print(x)
