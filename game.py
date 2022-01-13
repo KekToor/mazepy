@@ -1,3 +1,4 @@
+from kivy.properties import NumericProperty
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.vector import Vector
@@ -20,12 +21,12 @@ squareArray = [
 
 
 class MazeGame(Widget):
-    width = 1280
-    height = 720
-    count_width = 20
-    count_height = 12
+    width = NumericProperty(1280)
+    height = NumericProperty(720)
+    count_width = NumericProperty(20)
+    count_height = NumericProperty(12)
 
-    def __init__(self, **kwargs):
+    def __init__(self, models, **kwargs):
         super(MazeGame, self).__init__(**kwargs)
 
         self.default_width = int(self.width / self.count_width)
@@ -34,11 +35,10 @@ class MazeGame(Widget):
         self.squares = []
         for i in range(0, self.count_width):
             for j in range(0, self.count_height):
-                self.squares.append(Square(i * self.default_width, j * self.default_height, self.colors[squareArray[j][i]], j, i))
+                self.squares.append(Square(self.default_width, self.default_height, self.colors[squareArray[j][i]], i * self.default_width, j * self.default_height))
+        for square in self.squares:
+            self.add_widget(square)
 
     def draw(self):
         for square in self.squares:
             square.draw()
-
-# x = MazeGame()
-# print(x)
