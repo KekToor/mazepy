@@ -31,11 +31,11 @@ class MazeGame(Widget):
 
         self.default_width = int(self.width / self.count_width)
         self.default_height = int(self.height / self.count_height)
-        self.colors = ['#FFFFFF', '#000000', '#FF0000', '#00FF00']
+        self.colors = ['#FFFFFF', '#000000', '#00FF00', '#FF0000']
         self.squares = []
         for i in range(0, self.count_width):
             for j in range(0, self.count_height):
-                self.squares.append(Square(self.default_width, self.default_height, self.colors[squareArray[j][i]], i * self.default_width, j * self.default_height))
+                self.squares.append(Square(self.default_width, self.default_height, self.colors[squareArray[j][i]], i * self.default_width, self.height - ((j+1) * self.default_height)))
         for square in self.squares:
             self.add_widget(square)
 
