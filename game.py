@@ -3,6 +3,7 @@ from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.vector import Vector
 from square import Square
+from arrow import Arrow
 
 squareArray = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -42,3 +43,13 @@ class MazeGame(Widget):
     def draw(self):
         for square in self.squares:
             square.draw()
+        val = 2
+        for index, row in enumerate(squareArray):
+            if val in row:
+                arrow = Arrow(self.default_width, self.default_height, (row.index(val)) * self.default_width, self.height - ((index+1) * self.default_height))
+                print(arrow.arrowW, arrow.arrowH, arrow.posX, arrow.posY)
+                self.add_widget(arrow)
+                arrow.draw()
+                print(f'{index}, {row.index(val)}')
+
+
