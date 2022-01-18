@@ -4,7 +4,6 @@ from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.vector import Vector
 from kivy.animation import Animation
-
 from square import Square
 from arrow import Arrow
 
@@ -30,7 +29,7 @@ class MazeGame(Widget):
     count_width = NumericProperty(20)
     count_height = NumericProperty(12)
     fps = NumericProperty(60)
-
+    timer = False
 
     def __init__(self, models, **kwargs):
         super(MazeGame, self).__init__(**kwargs)
@@ -44,29 +43,41 @@ class MazeGame(Widget):
         for square in self.squares:
             self.add_widget(square)
 
-        Clock.schedule_interval(self.draw(), 1 / self.fps)
+        self.sipka = self.findStart(2)
+        print(self.sipka.arrowW)
+        self.add_widget(self.sipka)
+        self.timer = Clock.schedule_interval(self.update, 1.0 / self.fps)
 
     def draw(self):
         for square in self.squares:
             square.draw()
-        val = 2
+        # val = 2
+        self.sipka.draw()
+        self.remove_widget(self.sipka)
+        self.sipka.arrowW += self.default_width / self.fps
+        self.add_widget(self.sipka)
+        print(self.sipka)
+        #
 
+
+
+        # for index, row in enumerate(squareArray):
+        #     if val in row:
+        #         arrow = Arrow(self.default_width, self.default_height, (row.index(val)) * self.default_width, self.height - ((index+1) * self.default_height))
+        #         print(arrow.arrowW, arrow.arrowH, arrow.posX, arrow.posY)
+        #         self.add_widget(arrow)
+        #         arrow.draw()
+        #         arrow.arrowW += 2 * self.default_width
+        #         print(arrow.arrowW)
+        #         arrow.draw()
+        #         print(f'{index}, {row.index(val)}')
+
+    def findStart(self, val):
         for index, row in enumerate(squareArray):
             if val in row:
                 arrow = Arrow(self.default_width, self.default_height, (row.index(val)) * self.default_width, self.height - ((index+1) * self.default_height))
-                print(arrow.arrowW, arrow.arrowH, arrow.posX, arrow.posY)
-                self.add_widget(arrow)
-                arrow.draw()
-                arrow.arrowW = arrow.arrowW + (2 * self.default_width)
-                print(arrow.arrowW)
-                arrow.draw()
-                arrow.arrowW = arrow.arrowW + (2 * self.default_width)
-                print(arrow.arrowW)
-                arrow.draw()
-                print(f'{index}, {row.index(val)}')
+                return(arrow)
+
 
     def update(self, dt):
-
-
-
-
+        self.draw()
